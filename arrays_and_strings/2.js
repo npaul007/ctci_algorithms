@@ -40,10 +40,16 @@ function permutation (s1,s2) {
 
     let i = 0;
     while ( i < s1.length ) {
-        if( s1Hash[s1.charAt(i)].value !== s2Hash[s1.charAt(i)].value ) {
+        if(  s2Hash[s1.charAt(i)] == undefined || s2Hash[s1.charAt(i)].value !== s1.charAt(i) ) {
             isPermutation = false;
             i = s1.length;
         }    
+
+        if( s1Hash[s2.charAt(i)] == undefined || s1Hash[s2.charAt(i)].value !== s2.charAt(i) ) {
+            isPermutation = false;
+            i = s1.length;
+        }
+
         i++;
     }
 
@@ -51,5 +57,5 @@ function permutation (s1,s2) {
 }
 
 console.log("'abcd' and 'bcad'",permutation("abcd","bcad"));
-console.log("'food' and 'dofo'",permutation("food","dofo"));
+console.log("'food' and 'dooo'",permutation("food","dooo"));
 console.log("'bar' and 'bare'",permutation("bar","bare"));
