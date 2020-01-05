@@ -40,12 +40,12 @@ function permutation (s1,s2) {
 
     let i = 0;
     while ( i < s1.length ) {
-        if(  s2Hash[s1.charAt(i)] == undefined || s2Hash[s1.charAt(i)].value !== s1.charAt(i) ) {
+        if(  s2Hash[s1.charAt(i)] == undefined) {
             isPermutation = false;
             i = s1.length;
         }    
 
-        if( s1Hash[s2.charAt(i)] == undefined || s1Hash[s2.charAt(i)].value !== s2.charAt(i) ) {
+        if( s1Hash[s2.charAt(i)] == undefined) {
             isPermutation = false;
             i = s1.length;
         }
