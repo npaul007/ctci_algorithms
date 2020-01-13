@@ -22,7 +22,7 @@ function compressByCharCount(string) {
         else {
             dict[curChar+'-copy'+change] = 1;
         }
-        
+
         i++;
     }
 
