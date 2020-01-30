@@ -4,7 +4,7 @@ class Stack {
     }
 
     add(data) {
-        this.stack.push();
+        this.stack.push(data);
     }
 
     remove() {
@@ -25,3 +25,5 @@ class Stack {
         this.stack.length == 0;
     }
 }
+
+module.exports = Stack;

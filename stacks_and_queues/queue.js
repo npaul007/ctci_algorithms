@@ -25,3 +25,5 @@ class Queue {
         this.queue[this.queue.length - 1];
     }
 }
+
+module.exports = Queue;
