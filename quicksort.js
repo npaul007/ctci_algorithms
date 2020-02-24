@@ -1,26 +1,24 @@
-function swap(arr,i,j) {
-    let temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-}
-
-function quickSort(arr) {
-    let i = -1;
-
-    let pivot = Math.floor((arr.length-1)/2);
-    console.log(pivot)
-    for(let j = 0; j < arr.length - 1; j++) {
-        if( arr[j] < arr[pivot]) {
-            i++;
-            swap(arr,i,j);
-        }
-
-        if(j == arr.length - 2) {
-            swap(arr,i,j);
-        }
+function quickSort (arr) {
+    if(arr.length <= 1) {
+        return arr;
     }
-
-    return arr;
+    else {
+        let left = [];
+        let right = [];
+        let pivot = arr.pop();
+        let len = arr.length;
+        let newArr = [];
+    
+        for(let i = 0; i < len; i++) {
+            if( arr[i] <= pivot ) {
+                left.push(arr[i])
+            } else {
+                right.push(arr[i]);
+            }
+        }
+    
+        return newArr.concat(quickSort(left),pivot,quickSort(right));
+    }
 }
 
 let array = [7,2,1,8,6,3,5,4];
