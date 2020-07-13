@@ -7,13 +7,7 @@ function Graph () {
     }
 
     this.removeNode = function (value) {
-        let idx = this.nodes.findIndex(n => n.value === value );
-        if( idx < 0 ) {
-            return false;
-        }
-        else {
-            return this.nodes.splice(idx);
-        }
+        delete this.nodes[value];
     }
 }
 
