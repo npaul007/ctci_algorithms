@@ -1,42 +1,41 @@
-/* Graphs: Breadth-first search */
 
-function bfs(graph, root) {
-    var nodesLen = {};
+function Graph () {
+    this.nodes = {};
     
-    for (var i = 0; i < graph.length; i++) {
-      nodesLen[i] = Infinity;
+    this.addNode = function (node) {
+        this.nodes[node.value] = node;
     }
-    nodesLen[root] = 0; 
-    
-    var queue = [root]; 
-    var current; 
-  
-    while (queue.length != 0) {
-      current = queue.pop();
-      
-      var curConnected = graph[current];
-      var neighborIdx = []; 
-      var idx = curConnected.indexOf(1); 
-      while (idx != -1) {
-        neighborIdx.push(idx); 
-        idx = curConnected.indexOf(1, idx + 1); 
-      }
-      
-      for (var j = 0; j < neighborIdx.length; j++)  {
-        if (nodesLen[neighborIdx[j]] == Infinity) {
-          nodesLen[neighborIdx[j]] = nodesLen[current] + 1;
-          queue.push(neighborIdx[j]); 
+
+    this.removeNode = function (value) {
+        let idx = this.nodes.findIndex(n => n.value === value );
+        if( idx < 0 ) {
+            return false;
         }
-      }
+        else {
+            return this.nodes.splice(idx);
+        }
     }
-    return nodesLen;
-  };
-  
-  var exBFSGraph = [
-    [0, 1, 1, 1, 0],
-    [0, 0, 1, 0, 0],
-    [1, 1, 0, 0, 0],
-    [0, 0, 0, 1, 0],
-    [0, 1, 0, 0, 0]
-  ];
-  console.log(bfs(exBFSGraph, 1));
+}
+
+function Node (value,edges) {
+    this.value = value;
+    this.edges = edges
+}
+
+function BFS(node) {
+
+}
+
+let graph = new Graph();
+graph.addNode( new Node('A',['B','S']) );
+graph.addNode( new Node('B',[]) );
+graph.addNode( new Node('S',['C','G']) );
+graph.addNode( new Node('C',['D','E','F']) );
+graph.addNode( new Node('G',['H']) );
+graph.addNode( new Node('D',[]) );
+graph.addNode( new Node('E',[]) );
+graph.addNode( new Node('F',[]) );
+graph.addNode( new Node('H',['E']) );
+
+console.log(graph);
+
