@@ -34,8 +34,18 @@ function BFS(nodeValue,graph) {
 
     let curNode = graph.get(nodeValue);
 
-    queue.unshift(curNode.value);
+    queue.enqueue(curNode);
     traversedNodes.push(curNode.value);
+
+    while( queue.length !== 0 ) {
+        let node = queue.dequeue();
+
+        node.edges.forEach(e => {
+            graph.nodes[e].traversed = true;
+            traversedNodes.push(graph.nodes[e].value);
+            queue.enqueue(graph.nodes[e]);
+        });
+    }
 
     return traversedNodes.join('\n');
 }
@@ -49,7 +59,7 @@ graph.addNode( new Node('G',['H']) );
 graph.addNode( new Node('D',[]) );
 graph.addNode( new Node('E',[]) );
 graph.addNode( new Node('F',[]) );
-graph.addNode( new Node('H',['E']) );
+graph.addNode( new Node('H',[]) );
 
-console.log();
+console.log(BFS('A',graph));
 
