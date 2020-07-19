@@ -36,4 +36,4 @@ while( stack1.isEmpty() == false ) {
     console.log(min);
 }
 
-// console.log(stack1.stack,stack2);
+console.log(stack1.stack,stack2);

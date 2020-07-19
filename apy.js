@@ -1,4 +1,4 @@
-let sum = 2680;
+let sum = 3200;
 let interest = 0.07;
 let years = 40;
 let ylimit = 6000;
