@@ -1,0 +1,21 @@
+----------------------------------
+JobTarget Code Challenge
+----------------------------------
+
+The purpose of this challenge is for us to get a better idea of how you think, organize code, and tackle the problems at hand. This challenge should not take you longer than 4 hours. Let us know if you have any questions.
+
+----------------------------------
+
+Attached is a csv file: data.csv, which contains data related to fictional JobTarget customers. Your job is to write code that will load in data.csv and analyze the data against the rules listed below. Your code should output the results into three files: 
+1. high_county_spend.csv will contain a list of top 50 counties with the highest average cost to acquire a customer
+2. state_revenue.csv will contain a list of aggregate monthly spend by state
+3. best_customers.csv will contain the 25 customers with the best annual net revenue (spend minus cost)
+
+Guidance:
+* The same county name could appear in multiple states
+* You can assume that annual spend is monthly spend times 12
+* JobTarget's customers are companies, not employees
+
+Your code should be modular and reusable. Assume this is the first pass at a tool to build on and maintain.
+
+
