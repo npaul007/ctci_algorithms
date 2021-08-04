@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const writeHighCountySpend = function (rows) {
+function writeHighCountySpend (rows) {
     let dict = {};
 
     for(let i = 0; i < rows.length; i++) {
@@ -60,6 +60,39 @@ const writeHighCountySpend = function (rows) {
     });
 } 
 
+function writeStateRevenue (rows) {
+    let dict = {};
+    for(let i = 0; i < rows.length; i++) {
+        if( i > 0 ) {
+            let col = rows[i].split(',');
+            let state = col[7];
+            let monthly_spend =  Number(col[9].replace(/[$]/g,''));
+
+            if( dict[state] === undefined ) {
+               dict[state] = monthly_spend;
+            }
+            else {
+                dict[state] = dict[state] + monthly_spend;
+            }
+        }
+    }
+
+    let csvString = "State,Aggregate Monthly Spend\r\n";
+    for( entry in dict ) {
+        let row = `${entry},$${dict[entry]}\r\n`;
+        csvString += row;
+    }
+
+    fs.writeFile('./state_revenue.csv',csvString,(err) => {
+        if(err) {
+            console.error(err);
+        }
+        else {
+            console.log('state_revenue.csv written successfully');
+        }
+    });
+}
+
 function fixRows(rows) {
     for(let i = 0; i < rows.length; i++) {
         let escaped = rows[i].split('"');
@@ -77,10 +110,13 @@ function __main__ () {
             let rows = data.toString().split("\n");
             let columns = rows[0].split(",");
             
+            console.log(columns);
+
             // fixing the rows since business names can have commas which can screw things up
             fixRows(rows);
 
             writeHighCountySpend(rows);
+            writeStateRevenue(rows);
         }
     });
 
