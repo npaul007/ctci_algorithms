@@ -101,10 +101,11 @@ function writeBestCustomers (rows) {
             let col = rows[i].split(',');
             let company_name = col[3];
             let monthly_spend =  Number(col[9].replace(/[$]/g,''));
-            
+            let cost_to_acquire = Number(col[10].replace(/[$]/g,''));
+
             list.push({
                 name:company_name,
-                revenue:(monthly_spend * 12)
+                revenue: ( (monthly_spend * 12) - cost_to_acquire )
             });
         }
     }
@@ -144,8 +145,6 @@ function __main__ () {
             let rows = data.toString().split("\n");
             let columns = rows[0].split(",");
             
-            console.log(columns);
-
             // fixing the rows since business names can have commas which can screw things up
             fixRows(rows);
 
