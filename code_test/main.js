@@ -93,6 +93,40 @@ function writeStateRevenue (rows) {
     });
 }
 
+function writeBestCustomers (rows) {
+    let list = [];
+
+    for(let i = 0; i < rows.length; i++) {
+        if( i > 0 ) {
+            let col = rows[i].split(',');
+            let company_name = col[3];
+            let monthly_spend =  Number(col[9].replace(/[$]/g,''));
+            
+            list.push({
+                name:company_name,
+                revenue:(monthly_spend * 12)
+            });
+        }
+    }
+
+    list.sort((a,b) => b.revenue - a.revenue );
+
+    let csvString = "Customer,Annual Net Revenue\r\n";
+    for(let i = 0; i < list.length && i < 25; i++) {
+        let row = `${list[i].name},$${list[i].revenue}\r\n`;
+        csvString += row;
+    }
+
+    fs.writeFile('./best_customers.csv',csvString,(err) => {
+        if(err) {
+            console.error(err);
+        }
+        else {
+            console.log('best_customers.csv written successfully');
+        }
+    });
+}
+
 function fixRows(rows) {
     for(let i = 0; i < rows.length; i++) {
         let escaped = rows[i].split('"');
@@ -117,6 +151,7 @@ function __main__ () {
 
             writeHighCountySpend(rows);
             writeStateRevenue(rows);
+            writeBestCustomers(rows);
         }
     });
 
