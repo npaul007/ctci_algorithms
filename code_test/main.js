@@ -95,18 +95,39 @@ function writeStateRevenue (rows) {
 
 function writeBestCustomers (rows) {
     let dict = {};
+    let list = [];
+
     for(let i = 0; i < rows.length; i++) {
         if( i > 0 ) {
             let col = rows[i].split(',');
             let company_name = col[3];
             let monthly_spend =  Number(col[9].replace(/[$]/g,''));
 
-            if( dict[company_name] === undefined ) {
-               dict[company_name] = monthly_spend * 12;
-            }
+            let cost_to_acquire = Number(col[10].replace(/[$]/g,''));
+
+            list.push({
+                name:company_name,
+                revenue: ( (monthly_spend * 12) - cost_to_acquire )
+            });
         }
     }
-    console.log(dict);
+
+    list.sort((a,b) => b.revenue - a.revenue );
+
+    let csvString = "Customer,Annual Net Revenue\r\n";
+    for(let i = 0; i < list.length && i < 25; i++) {
+        let row = `${list[i].name},$${list[i].revenue}\r\n`;
+        csvString += row;
+    }
+
+    fs.writeFile('./best_customers.csv',csvString,(err) => {
+        if(err) {
+            console.error(err);
+        }
+        else {
+            console.log('best_customers.csv written successfully');
+        }
+    });
 }
 
 function fixRows(rows) {
@@ -126,13 +147,11 @@ function __main__ () {
             let rows = data.toString().split("\n");
             let columns = rows[0].split(",");
             
-            console.log(columns);
-
             // fixing the rows since business names can have commas which can screw things up
             fixRows(rows);
 
-            // writeHighCountySpend(rows);
-            // writeStateRevenue(rows);
+            writeHighCountySpend(rows);
+            writeStateRevenue(rows);
             writeBestCustomers(rows);
         }
     });
