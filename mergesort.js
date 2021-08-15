@@ -1,24 +1,31 @@
-function merge_sort(left_part,right_part) 
-{
-	var i = 0;
-	var j = 0;
-	var results = [];
+list = [1,3,2,6,100,5,8,6,9];
 
-	while (i < left_part.length || j < right_part.length) {
-		if (i === left_part.length) {
-			// j is the only index left_part
-			results.push(right_part[j]);
-			j++;
-		} 
-      else if (j === right_part.length || left_part[i] <= right_part[j]) {
-			results.push(left_part[i]);
-			i++;
-		} else {
-			results.push(right_part[j]);
-			j++;
-		}
+function mergeSort(array) {
+	let half = array.length / 2;
+
+	if(array.length === 1) {
+		return array;
 	}
-	return results;
+
+	let left = array.splice(0,half);
+	let right = array;
+
+	return merge(mergeSort(left),mergeSort(right));
 }
 
-console.log(merge_sort([1,3,4], [3,7,9]));
+function merge(left,right) {
+	let sortedArray = [];
+	while( left.length && right.length ) {
+		if( left[0] < right[0] ) {
+			sortedArray.push(left.shift());
+		}
+		else {
+			sortedArray.push(right.shift());
+		}
+	}
+	return [...sortedArray,...left,...right];
+}
+
+console.log(list);
+
+console.log(mergeSort(list));

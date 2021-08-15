@@ -93,6 +93,22 @@ function writeStateRevenue (rows) {
     });
 }
 
+function writeBestCustomers (rows) {
+    let dict = {};
+    for(let i = 0; i < rows.length; i++) {
+        if( i > 0 ) {
+            let col = rows[i].split(',');
+            let company_name = col[3];
+            let monthly_spend =  Number(col[9].replace(/[$]/g,''));
+
+            if( dict[company_name] === undefined ) {
+               dict[company_name] = monthly_spend * 12;
+            }
+        }
+    }
+    console.log(dict);
+}
+
 function fixRows(rows) {
     for(let i = 0; i < rows.length; i++) {
         let escaped = rows[i].split('"');
@@ -115,8 +131,9 @@ function __main__ () {
             // fixing the rows since business names can have commas which can screw things up
             fixRows(rows);
 
-            writeHighCountySpend(rows);
-            writeStateRevenue(rows);
+            // writeHighCountySpend(rows);
+            // writeStateRevenue(rows);
+            writeBestCustomers(rows);
         }
     });
 
