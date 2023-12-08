@@ -1,0 +1,12 @@
+Given an array with an array of integers and target integers.
+Example:
+num = [2, 7, 11, 15, 3, 5, 7, 5, 8]
+target = 10
+The output could be:
+- two integers which add up to a target value.
+- an array with just two numbers.
+- we do not care about the order of the numbers.
+- Return all the pairs without duplicates.
+Example output:
+[[7,3], [5,5], [2,8]]
+You can write the algorithm in any programming language.

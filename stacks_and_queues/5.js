@@ -9,7 +9,7 @@ const Stack = require('./stack');
 let stack1 = new Stack();
 let stack2 = new Stack();
 
-let data = [1,4,3];
+let data = [2, 7, 11, 15, 3, 5, 7, 5, 8];
 
 // populating stack1 w/ data
 while(data.length > 0) {
