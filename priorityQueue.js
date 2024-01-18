@@ -5,11 +5,11 @@ let queue = [];
 while (jobs.length) {
   let val = jobs.shift();
   if (queue.length === 0) queue.push(val);
-  else if (val >= queue[0]) {
+  else if (val <= queue[0]) {
     queue.unshift(val);
   } else {
     let c = 0;
-    while (queue[c] > val && c < queue.length) {
+    while (queue[c] < val && c < queue.length) {
       c++;
     }
 
